@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "Kind Registry"
+version = "0.1.0"
+description = "Demo para imagens geradas localmente e usadas no Kind k8s."
+authors = ["Marcos V. Leal <marcosleal@coderarena.com.br>"]
+maintainers = ["Marcos V. Leal <marcosleal@coderarena.com.br>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+homepage = "https://coderarena.com.br"
+repository = "https://github.com/coder-arena/kind-local-registry"
+packages = [
+    { include = "src/**/*.py", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.62.0"
+uvicorn = "^0.12.3"
+pydantic = "^1.7.3"
+
+[tool.poetry.dev-dependencies]
+pycodestyle = "^2.6.0"
+isort = "^5.6.4"
+flake8 = "^3.8.4"
+mypy = "^0.790"
+black = "^20.8b1"
+pytest = "^6.1.2"
+
+[tool.isort]
+force_single_line = false
+line_length = 80
+use_parentheses = true
+multi_line_output = 3
+include_trailing_comma = true
+lines_between_types = 1
+known_app = ["src"]
+known_third_party = ["pytest"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "LOCALFOLDER", "APP"]
+
+[tool.black]
+line-length = 80
+target_version = ["py38"]
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs
+    | \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | settings.py
+  )/
+)
+'''
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

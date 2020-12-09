@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kr-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kr-app
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: kr-app
+        tier: backend
+    spec:
+      containers:
+        - name: kr-container
+          image: localhost:5000/kr:0.1.0-dev
+          command: ["./scripts/start-from-k8s.sh"]
+          ports:
+            - name: http
+              containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: kr-configmap

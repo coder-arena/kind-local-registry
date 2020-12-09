@@ -1,0 +1,25 @@
+version: "3.8"
+
+x-build:
+  &default-build
+  context: .
+  dockerfile: Dockerfile.dev
+
+services:
+  app:
+    container_name: kr-app
+    build: *default-build
+    env_file: .env
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    volumes:
+      - .:/app
+    command: ["./scripts/start.sh"]
+
+  lint:
+    container_name: kr-lint
+    build: *default-build
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: ["./scripts/start-lint.sh"]
